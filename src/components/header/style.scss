@@ -22,10 +22,13 @@
     transform: translateY(-60px);
   }
   .websiteName {
-    font-size: 40px;
+    font-size: 20px;
     background: var(--gradient);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+    @include md {
+      font-size: 30px;
+    }
   }
 
   .contentWrapper {

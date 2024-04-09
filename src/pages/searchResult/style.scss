@@ -23,17 +23,19 @@
     color: white;
     margin-bottom: 25px;
   }
-  .content {
+
+  .movieDataContainer {
+    list-style-type: none;
     display: flex;
-    flex-flow: row wrap;
-    gap: 10px;
-    margin-bottom: 50px;
-    @include md {
-      gap: 20px;
-    }
-    .movieCard {
-      .posterBlock {
-        margin-bottom: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    li {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .movieCard {
+        width: 80%;
       }
     }
   }

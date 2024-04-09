@@ -69,6 +69,8 @@ const Header = () => {
       navigate("/explore/upcoming");
     } else if (type === "top") {
       navigate("/explore/toprated");
+    } else if (type === "popular") {
+      navigate("/explore/popular");
     }
     setMobileMenu(false);
   };
@@ -97,6 +99,10 @@ const Header = () => {
           <li onClick={() => navigationHandler("top")} className="menuItem">
             Top Rated
           </li>
+          <li onClick={() => navigationHandler("popular")} className="menuItem">
+            Popular
+          </li>
+
           <li className="menuItem">
             <HiOutlineSearch onClick={openSearch} />
           </li>

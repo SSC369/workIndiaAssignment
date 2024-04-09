@@ -1,54 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
-
-import "./style.scss";
-
-import { fetchDataFromApi } from "../../utils/api";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import MovieCard from "../../components/movieCard/MovieCard";
 import Spinner from "../../components/spinner/Spinner";
 import noResults from "../../assets/no-results.png";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
+import useFetch from "../../hooks/useFetch";
+import Pagination from "../../components/pagination/Pagination";
+import "./style.scss";
+import { PageContext } from "../../context/pageContext";
 
 const SearchResult = () => {
-  const [data, setData] = useState(null);
-  const [pageNum, setPageNum] = useState(1);
-  const [loading, setLoading] = useState(false);
   const { query } = useParams();
+  const { data, loading } = useFetch(`/search/multi?query=${query}`);
+  const { setTopRatedPage, topRatedPage } = useContext(PageContext);
 
-  const fetchInitialData = () => {
-    setLoading(true);
-    fetchDataFromApi(`/search/multi?query=${query}&page=${pageNum}`).then(
-      (res) => {
-        setData(res);
-        setPageNum((prev) => prev + 1);
-        setLoading(false);
-      }
-    );
-  };
-
-  const fetchNextPageData = () => {
-    fetchDataFromApi(`/search/multi?query=${query}&page=${pageNum}`).then(
-      (res) => {
-        if (data?.results) {
-          setData({
-            ...data,
-            results: [...data?.results, ...res.results],
-          });
-        } else {
-          setData(res);
-        }
-        setPageNum((prev) => prev + 1);
-      }
-    );
+  const onPageChange = (p) => {
+    setTopRatedPage(p);
   };
 
   useEffect(() => {
-    setPageNum(1);
-    fetchInitialData();
-  }, [query]);
+    return () => {
+      setTopRatedPage(1);
+    };
+  }, []);
 
   return (
     <>
@@ -56,7 +32,7 @@ const SearchResult = () => {
       <div className="searchResultsPage">
         {loading && <Spinner initial={true} />}
         {!loading && (
-          <ContentWrapper>
+          <div className="wrapper">
             {data?.results?.length > 0 ? (
               <>
                 <div className="pageTitle">
@@ -64,20 +40,27 @@ const SearchResult = () => {
                     data?.total_results > 1 ? "results" : "result"
                   } of '${query}'`}
                 </div>
-                <InfiniteScroll
-                  className="content"
-                  dataLength={data?.results?.length || []}
-                  next={fetchNextPageData}
-                  hasMore={pageNum <= data?.total_pages}
-                  loader={<Spinner />}
-                >
-                  {data?.results.map((item, index) => {
-                    if (item.media_type === "person") return;
+
+                <ul className="movieDataContainer">
+                  {data?.results.map((m) => {
                     return (
-                      <MovieCard key={index} data={item} fromSearch={true} />
+                      <li key={m.id}>
+                        <MovieCard
+                          fromSearch={true}
+                          data={m}
+                          mediaType="movie"
+                        />
+                      </li>
                     );
                   })}
-                </InfiniteScroll>
+                </ul>
+
+                <Pagination
+                  totalItems={data?.total_results}
+                  itemsPerPage={20}
+                  onPageChange={onPageChange}
+                  page={topRatedPage}
+                />
               </>
             ) : (
               <div className="noFoundContainer">
@@ -87,7 +70,7 @@ const SearchResult = () => {
                 </span>
               </div>
             )}
-          </ContentWrapper>
+          </div>
         )}
       </div>
       <Footer />

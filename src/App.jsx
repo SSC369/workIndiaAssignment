@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/404/NotFoundPage";
 import "react-toastify/dist/ReactToastify.css";
 import Upcoming from "./pages/upcoming/Upcoming";
 import TopRatedPage from "./pages/topRated/TopRatedPage";
+import Popular from "./pages/popular/Popular";
 const App = () => {
   const url = useSelector((state) => state.home.url);
 
@@ -58,6 +59,7 @@ const App = () => {
         <Route path="/search/:query" element={<Search />} />
         <Route path="/explore/:mediaType" element={<Explore />} />
         <Route path="/explore/upcoming" element={<Upcoming />} />
+        <Route path="/explore/popular" element={<Popular />} />
         <Route path="/explore/toprated" element={<TopRatedPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

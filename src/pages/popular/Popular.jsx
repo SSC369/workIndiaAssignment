@@ -4,13 +4,13 @@ import Footer from "../../components/footer/Footer";
 import useFetch from "../../hooks/useFetch";
 import MovieCard from "../../components/movieCard/MovieCard";
 import Spinner from "../../components/spinner/Spinner";
-import "./style.scss";
-import { PageContext } from "../../context/pageContext";
 import Pagination from "../../components/pagination/Pagination";
+import { PageContext } from "../../context/pageContext";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
+import "./style.scss";
 
-const Upcoming = () => {
-  const { data, loading } = useFetch("/movie/upcoming");
+const Popular = () => {
+  const { data, loading } = useFetch("/movie/popular");
   const { setTopRatedPage, topRatedPage } = useContext(PageContext);
 
   const onPageChange = (page) => {
@@ -31,7 +31,7 @@ const Upcoming = () => {
           <Spinner initial={true} />
         ) : (
           <div className="wrapper">
-            <h1>Upcoming Movies</h1>
+            <h1>Popular Movies</h1>
             <ul className="moviesDataContainer">
               {data?.results.map((m) => {
                 return (
@@ -55,4 +55,4 @@ const Upcoming = () => {
   );
 };
 
-export default Upcoming;
+export default Popular;

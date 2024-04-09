@@ -5,9 +5,12 @@ import "./index.scss";
 
 import { store } from "./store/store.js";
 import { Provider } from "react-redux";
+import { PageContextProvider } from "./context/pageContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <PageContextProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </PageContextProvider>
 );
