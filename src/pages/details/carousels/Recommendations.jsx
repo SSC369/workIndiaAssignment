@@ -18,7 +18,7 @@ const Recommendation = ({ mediaType, id }) => {
           endpoint={mediaType}
         />
       ) : (
-        <div className="emptyTitle">No Recommendations {":("}</div>
+        <div className="emptyTitle">No Recommendations !</div>
       )}
     </>
   );

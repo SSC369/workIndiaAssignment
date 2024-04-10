@@ -7,10 +7,13 @@
     list-style-type: none;
     display: flex;
     gap: 10px;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
+    @include md {
+      justify-content: space-between;
+    }
     li {
-      width: 30%;
+      width: 60%;
       display: flex;
       gap: 10px;
       align-items: center;
@@ -20,7 +23,7 @@
       }
 
       @include md {
-        width: 20%;
+        width: 30%;
       }
     }
   }

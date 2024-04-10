@@ -32,12 +32,12 @@ const TopRatedPage = () => {
           <Spinner initial={true} />
         ) : (
           <div className="wrapper">
-            <h1>Upcoming Movies</h1>
+            <h1>Top Rated</h1>
             <ul className="moviesDataContainer">
               {data?.results.map((m) => {
                 return (
                   <li key={m.id}>
-                    <MovieCard fromSearch={false} data={m} mediaType="movie" />;
+                    <MovieCard fromSearch={false} data={m} mediaType="movie" />
                   </li>
                 );
               })}

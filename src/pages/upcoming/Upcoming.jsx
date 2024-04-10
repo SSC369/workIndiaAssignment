@@ -36,7 +36,7 @@ const Upcoming = () => {
               {data?.results.map((m) => {
                 return (
                   <li key={m.id}>
-                    <MovieCard fromSearch={false} data={m} mediaType="movie" />;
+                    <MovieCard fromSearch={false} data={m} mediaType="movie" />
                   </li>
                 );
               })}

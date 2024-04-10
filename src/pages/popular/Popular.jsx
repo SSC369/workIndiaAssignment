@@ -6,7 +6,7 @@ import MovieCard from "../../components/movieCard/MovieCard";
 import Spinner from "../../components/spinner/Spinner";
 import Pagination from "../../components/pagination/Pagination";
 import { PageContext } from "../../context/pageContext";
-import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
+
 import "./style.scss";
 
 const Popular = () => {
@@ -36,7 +36,7 @@ const Popular = () => {
               {data?.results.map((m) => {
                 return (
                   <li key={m.id}>
-                    <MovieCard fromSearch={false} data={m} mediaType="movie" />;
+                    <MovieCard fromSearch={false} data={m} mediaType="movie" />
                   </li>
                 );
               })}
